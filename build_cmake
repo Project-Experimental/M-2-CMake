@@ -1,0 +1,24 @@
+#!/bin/bash
+echo "=========================="
+echo "      CMake Builder"
+echo "    by Nakada Tokumei"
+echo "=========================="
+
+export SRC=$(pwd)
+export BUILD=${SRC}/build
+export SYSROOT=${HOME}/sysroot_m2
+
+function build_cmake() {
+    if [[ ! -d ${BUILD} ]]; then
+        mkdir -p ${BUILD}
+    fi
+
+    cd ${BUILD}
+
+    ../bootstrap --prefix=${SYSROOT}/usr/
+    make -j8
+    make install
+
+}
+
+build_cmake
